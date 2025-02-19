@@ -1,4 +1,5 @@
 import { vector } from './vector/vector.js';
+import { add, avarage, multiply } from './vector/vector_math.js';
 
 export function debug_vector() {
 	// Creating a new vector
@@ -133,4 +134,13 @@ export function debug_vector() {
 	console.log(test_vector.randomIntRangeV(new vector(0, 0), new vector(10, 10)));
 }
 
-debug_vector();
+export function debug_vector_math() {
+	console.log(add(new vector(100, 100), new vector(-1, -1)));
+
+	console.log(multiply(new vector(1, 1), new vector(100, 100), new vector(2, 2)));
+
+	console.log(avarage(new vector(10, 10), new vector(20, 20)));
+}
+
+// debug_vector();
+debug_vector_math();
