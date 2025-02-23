@@ -1,3 +1,5 @@
+import { Brush } from './brush/brush.js';
+import { Color } from './color/color.js';
 import { vector } from './vector/vector.js';
 import { add, avarage, multiply } from './vector/vector_math.js';
 
@@ -142,5 +144,39 @@ export function debug_vector_math() {
 	console.log(avarage(new vector(10, 10), new vector(20, 20)));
 }
 
+export function debug_color() {
+	let can = new Brush();
+	can.resize();
+
+	// Normal
+	const red = new Color(255, 0, 0, 1);
+	const black = new Color(0, 0, 0, 1);
+	can.drawRect(0, 0, 100, 100, red, black, 10);
+	// Transparent
+	const transparentRed = new Color(255, 0, 0, 0.5);
+	can.drawRect(0, 0, 100, 100, transparentRed, black, 10);
+
+	// Mix
+	const transparentBlue = new Color(0, 0, 255, 0.5);
+	can.drawRect(100, 0, 100, 100, transparentBlue, black, 10);
+	can.drawRect(100, 0, 100, 100, transparentRed, black, 10);
+
+	// Add
+	const purple = transparentRed.copy().add(transparentBlue);
+	can.drawRect(200, 0, 100, 100, purple, black, 10);
+
+	// Mul
+}
+
+export function debug_brush() {
+	let can = new Brush();
+	can.resize();
+	can.setFillColor(new Color(255, 0, 0, 1));
+	can.pathRect(0, 0, 100, 100);
+	can.fill();
+}
+
 // debug_vector();
-debug_vector_math();
+// debug_vector_math();
+debug_color();
+// debug_brush();
