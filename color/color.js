@@ -66,6 +66,20 @@ export class Color {
 	}
 
 	/**
+	 * Sets the color from a hex string.
+	 * @param {string} [hex='#000000'] - The hex string.
+	 * @returns {Color} A new Color object with the updated values
+	 */
+	set_hex(hex = '#000000') {
+		const hex_color = hex.replace('#', '');
+		this.r = parseInt(hex_color.substring(0, 2), 16);
+		this.g = parseInt(hex_color.substring(2, 4), 16);
+		this.b = parseInt(hex_color.substring(4, 6), 16);
+		this.a = 1;
+		return this.copy();
+	}
+
+	/**
 	 * Adds the values of another color to this color.
 	 *
 	 * @param {Color} [color=new Color()] - The color to add.

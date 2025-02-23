@@ -1,5 +1,7 @@
-import { Brush } from './brush/brush.js';
+import { Brush, can } from './brush/brush.js';
 import { Color } from './color/color.js';
+import { palette } from './color/color_constants.js';
+import { Panel } from './UI/user_interface.js';
 import { vector } from './vector/vector.js';
 import { add, avarage, multiply } from './vector/vector_math.js';
 
@@ -174,9 +176,36 @@ export function debug_brush() {
 	can.setFillColor(new Color(255, 0, 0, 1));
 	can.pathRect(0, 0, 100, 100);
 	can.fill();
+
+	can.drawRoundRect(100, 0, 100, 100, 25, new Color(0, 255, 0, 1), new Color(0, 0, 0, 1), 0);
 }
 
-// debug_vector();
+export function debug_panel() {
+	let panel = new Panel(new vector(0, 0), new vector(100, 100), palette.black, new Color(255, 0, 0, 1), 4, 20);
+	panel.draw();
+	panel.shift(100);
+	panel.update();
+	panel.draw();
+	console.log(panel.position);
+}
+
+let panel = new Panel(new vector(0, 0), new vector(100, 100), palette.black, new Color(255, 0, 0, 1), 4, 20);
+
+let frame = 0;
+function loop() {
+	requestAnimationFrame(loop);
+	if (frame % 1 == 0) {
+		can.c.clearRect(0, 0, can.c.canvas.width, can.c.canvas.height);
+		panel.update();
+		panel.draw();
+	}
+	frame++;
+}
+
+// debug_vector()
 // debug_vector_math();
-debug_color();
+// debug_color();
 // debug_brush();
+// debug_panel();
+loop();
+panel.shift(new vector(100, 200), 60);

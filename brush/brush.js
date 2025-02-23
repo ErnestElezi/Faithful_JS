@@ -295,6 +295,33 @@ export class Brush {
 		}
 	}
 
+	/**
+	 * Draws a rounded rectangle path on the canvas context.
+	 *
+	 * @param {number} [x=0] - The x-coordinate of the rectangle's starting point.
+	 * @param {number} [y=0] - The y-coordinate of the rectangle's starting point.
+	 * @param {number} [w=0] - The width of the rectangle.
+	 * @param {number} [h=0] - The height of the rectangle.
+	 * @param {number} [r=0] - The radius of the rectangle's corners.
+	 */
+	pathRoundedRect(x = 0, y = 0, w = 0, h = 0, r = 0) {
+		this.c.moveTo(x + r, y);
+		this.c.arcTo(x + w, y, x + w, y + h, r);
+		this.c.arcTo(x + w, y + h, x, y + h, r);
+		this.c.arcTo(x, y + h, x, y, r);
+		this.c.arcTo(x, y, x + w, y, r);
+	}
+	/**
+	 * Draws a rounded rectangle path with vertical orientation.
+	 *
+	 * @param {vector} [position=new vector()] - The position of the rectangle.
+	 * @param {vector} [size=new vector()] - The size of the rectangle.
+	 * @param {number} [r=0] - The radius of the rounded corners.
+	 */
+	pathRoundedRectV(position = new vector(), size = new vector(), r = 0) {
+		this.pathRoundedRect(position.x, position.y, size.x, size.y, r);
+	}
+
 	// Fill Shapes
 
 	/**
@@ -542,6 +569,42 @@ export class Brush {
 	fillShapeV(points = [new vector()], fill = new Color()) {
 		this.beginPath();
 		this.pathShapeV(points);
+		this.setFillColor(fill);
+		this.fill();
+		this.closePath();
+	}
+
+	/**
+	 * Fills a rounded rectangle on the canvas context.
+	 *
+	 * @param {number} [x=0] - The x-coordinate of the rectangle's starting point.
+	 * @param {number} [y=0] - The y-coordinate of the rectangle's starting point.
+	 * @param {number} [w=0] - The width of the rectangle.
+	 * @param {number} [h=0] - The height of the rectangle.
+	 * @param {number} [r=0] - The radius of the rectangle's corners.
+	 * @param {Color} [fill=new Color()] - The fill color.
+	 *
+	 * @example
+	 * brush.fillRoundRect(100, 100, 200, 100, 10, new Color(255, 0, 0));
+	 */
+	fillRoundRect(x = 0, y = 0, w = 0, h = 0, r = 0, fill = new Color()) {
+		this.beginPath();
+		this.pathRoundedRect(x, y, w, h, r);
+		this.setFillColor(fill);
+		this.fill();
+		this.closePath();
+	}
+	/**
+	 * Draws and fills a rounded rectangle on the canvas.
+	 *
+	 * @param {vector} [position=new vector()] - The position of the top-left corner of the rectangle.
+	 * @param {vector} [size=new vector()] - The size of the rectangle.
+	 * @param {number} [r=0] - The radius of the rounded corners.
+	 * @param {Color} [fill=new Color()] - The fill color of the rectangle.
+	 */
+	fillRoundRectV(position = new vector(), size = new vector(), r = 0, fill = new Color()) {
+		this.beginPath();
+		this.pathRoundedRectV(position, size, r);
 		this.setFillColor(fill);
 		this.fill();
 		this.closePath();
@@ -796,6 +859,35 @@ export class Brush {
 	strokeShapeV(points = [new vector()], stroke = new Color(), lineWidth = 1) {
 		this.beginPath();
 		this.pathShapeV(points);
+		this.strokeV(stroke, lineWidth);
+	}
+
+	/**
+	 * Strokes a rounded rectangle on the canvas context.
+	 * @param {number} [x=0] - The x-coordinate of the rectangle's starting point.
+	 * @param {number} [y=0] - The y-coordinate of the rectangle's starting point.
+	 * @param {number} [w=0] - The width of the rectangle.
+	 * @param {number} [h=0] - The height of the rectangle.
+	 * @param {number} [r=0] - The radius of the rectangle's corners.
+	 * @param {Color} [stroke=new Color()] - The stroke color.
+	 * @param {number} [lineWidth=1] - The width of the stroke line.
+	 */
+	strokeRoundRect(x = 0, y = 0, w = 0, h = 0, r = 0, stroke = new Color(), lineWidth = 1) {
+		this.beginPath();
+		this.pathRoundedRect(x, y, w, h, r);
+		this.strokeV(stroke, lineWidth);
+	}
+	/**
+	 * Strokes and draws a rounded rectangle on the canvas.
+	 * @param {vector} [position=new vector()] - The position of the top-left corner of the rectangle.
+	 * @param {vector} [size=new vector()] - The size of the rectangle.
+	 * @param {number} [r=0] - The radius of the rounded corners.
+	 * @param {Color} [stroke=new Color()] - The stroke color of the rectangle.
+	 * @param {number} [lineWidth=1] - The width of the stroke line.
+	 */
+	strokeRoundRectV(position = new vector(), size = new vector(), r = 0, stroke = new Color(), lineWidth = 1) {
+		this.beginPath();
+		this.pathRoundedRectV(position, size, r);
 		this.strokeV(stroke, lineWidth);
 	}
 
@@ -1072,6 +1164,39 @@ export class Brush {
 		this.draw(fill, stroke, lineWidth);
 	}
 
+	/**
+	 * Draws a rounded rectangle on the canvas context.
+	 *
+	 * @param {number} [x=0] - The x-coordinate of the rectangle's starting point.
+	 * @param {number} [y=0] - The y-coordinate of the rectangle's starting point.
+	 * @param {number} [w=0] - The width of the rectangle.
+	 * @param {number} [h=0] - The height of the rectangle.
+	 * @param {number} [r=0] - The radius of the rectangle's corners.
+	 * @param {Color} [fill=new Color()] - The fill color.
+	 * @param {Color} [stroke=new Color()] - The stroke color.
+	 * @param {number} [lineWidth=1] - The width of the stroke line.
+	 */
+	drawRoundRect(x = 0, y = 0, w = 0, h = 0, r = 0, fill = new Color(), stroke = new Color(), lineWidth = 1) {
+		this.beginPath();
+		this.pathRoundedRect(x, y, w, h, r);
+		this.draw(fill, stroke, lineWidth);
+	}
+	/**
+	 * Draws a rounded rectangle on the canvas context using vector objects.
+	 *
+	 * @param {vector} [position=new vector()] - The position vector of the rectangle's starting point.
+	 * @param {vector} [size=new vector()] - The size vector of the rectangle.
+	 * @param {number} [r=0] - The radius of the rectangle's corners.
+	 * @param {Color} [fill=new Color()] - The fill color.
+	 * @param {Color} [stroke=new Color()] - The stroke color.
+	 * @param {number} [lineWidth=1] - The width of the stroke line.
+	 */
+	drawRoundRectV(position = new vector(), size = new vector(), r = 0, fill = new Color(), stroke = new Color(), lineWidth = 1) {
+		this.beginPath();
+		this.pathRoundedRectV(position, size, r);
+		this.draw(fill, stroke, lineWidth);
+	}
+
 	// Rendering
 
 	/**
@@ -1167,3 +1292,6 @@ export class Brush {
 		this.c.rotate(angle * deg);
 	}
 }
+
+export const can = new Brush();
+can.resize();
