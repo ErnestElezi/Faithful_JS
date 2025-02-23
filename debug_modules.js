@@ -1,7 +1,8 @@
 import { Brush, can } from './brush/brush.js';
 import { Color } from './color/color.js';
 import { palette } from './color/color_constants.js';
-import { Panel } from './UI/user_interface.js';
+import { clear_keys, get_last_keys, get_sequence, is_key_changed, is_key_down, update_input } from './input/input.js';
+import { Label, Panel } from './UI/user_interface.js';
 import { vector } from './vector/vector.js';
 import { add, avarage, multiply } from './vector/vector_math.js';
 
@@ -180,16 +181,21 @@ export function debug_brush() {
 	can.drawRoundRect(100, 0, 100, 100, 25, new Color(0, 255, 0, 1), new Color(0, 0, 0, 1), 0);
 }
 
-export function debug_panel() {
-	let panel = new Panel(new vector(0, 0), new vector(100, 100), palette.black, new Color(255, 0, 0, 1), 4, 20);
-	panel.draw();
-	panel.shift(100);
-	panel.update();
-	panel.draw();
-	console.log(panel.position);
-}
-
-let panel = new Panel(new vector(0, 0), new vector(100, 100), palette.black, new Color(255, 0, 0, 1), 4, 20);
+let panel = new Panel(
+	new vector(40, 20),
+	new vector(500, 350),
+	palette.blackDim,
+	palette.lime,
+	4,
+	25,
+	() => {},
+	() => {},
+	() => {
+		panel.shift(new vector(40, 20), 100, 'inOutCubic');
+	},
+	[new Label('Hello', 'center', 'center', new vector(250, 20), palette.white, palette.black, 1, 1, palette.red)],
+	false
+);
 
 let frame = 0;
 function loop() {
@@ -199,6 +205,16 @@ function loop() {
 		panel.update();
 		panel.draw();
 	}
+
+	if (get_sequence('ShiftA')) {
+		panel.shift(new vector(40, 20), 100, 'inOutCubic');
+	}
+
+	can.c.fillStyle = 'white';
+	can.c.font = '20px Arial';
+	can.c.fillText(get_last_keys(), 10, 20);
+
+	update_input();
 	frame++;
 }
 
@@ -207,5 +223,5 @@ function loop() {
 // debug_color();
 // debug_brush();
 // debug_panel();
+
 loop();
-panel.shift(new vector(100, 200), 60);

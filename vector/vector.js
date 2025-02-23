@@ -61,12 +61,35 @@ export class vector {
 	}
 
 	/**
-	 * Sets the vector from argument vector
-	 * @param {vector} vector Vector
-	 * @returns Copy of current vector
+	 * sets the vector from argument vector
+	 * @param {vector} vector vector
+	 * @returns copy of current vector
 	 */
 	setV(vector = new vector()) {
 		this.set(vector.x, vector.y);
+		return this.copy();
+	}
+
+	/**
+	 * Subtracts the given x and y values from the current vector's x and y values.
+	 *
+	 * @param {number} [x=0] - The x value to subtract.
+	 * @param {number} [y=0] - The y value to subtract.
+	 * @returns {Object} A copy of the updated vector.
+	 */
+	sub(x = 0, y = 0) {
+		this.set(this.x - x, this.y - y);
+		return this.copy();
+	}
+
+	/**
+	 * Subtracts the given vector from the current vector.
+	 *
+	 * @param {Object} vector - The vector to subtract.
+	 * @returns {Object} A copy of the current vector after subtraction.
+	 */
+	subV(vector = new vector()) {
+		this.sub(vector.x, vector.y);
 		return this.copy();
 	}
 

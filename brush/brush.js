@@ -1295,3 +1295,5 @@ export class Brush {
 
 export const can = new Brush();
 can.resize();
+can.c.textAlign = 'left';
+can.c.textBaseline = 'top';

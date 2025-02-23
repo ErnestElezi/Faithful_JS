@@ -13,14 +13,19 @@ function easeOutCubic(x) {
 	return 1 - Math.pow(1 - x, 3);
 }
 
+function easeInOutCubic(x) {
+	return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+}
+
 const easeFunctions = {
 	sine: easeInSine,
 	inOutSine: easeInOutSine,
-    outCubic: easeOutCubic,
+	outCubic: easeOutCubic,
+	inOutCubic: easeInOutCubic,
 };
 
 export class AnimationValue {
-	constructor(value = 0, start = 0, end = 0, length = 0, ease = 'linear') {
+	constructor(value = '', start = 0, end = 0, length = 1, ease = 'inOutSine') {
 		this.value = value;
 		this.start = start;
 		this.end = end;
@@ -29,17 +34,27 @@ export class AnimationValue {
 		this.frame = 0;
 		this.ease = ease;
 	}
-	update() {
+	update(object) {
 		this.frame++;
-		this.t = easeFunctions[this.ease](this.frame / this.length);
 
-		this.value = lerp(this.start, this.end, this.t);
-		console.log(this.value);
+		if (this.frame > this.length) {
+			this.frame = this.length;
+		}
+
+		this.t = easeFunctions[this.ease](this.frame / this.length);
+		this.offset = lerp(this.start, this.end, this.t);
+		object[this.value] = this.offset;
+	}
+	stop() {
+		this.frame = this.length;
+	}
+	reset() {
+		this.frame = 0;
 	}
 }
 
 export class AnimationVector {
-	constructor(value = new vector(), start = new vector(), end = new vector(), length, ease = 'inOutSine') {
+	constructor(value = 'position', start = new vector(), end = new vector(), length = 1, ease = 'inOutSine') {
 		this.value = value;
 		this.start = start;
 		this.end = end;
@@ -48,7 +63,7 @@ export class AnimationVector {
 		this.frame = 0;
 		this.ease = ease;
 	}
-	update() {
+	update(object) {
 		this.frame++;
 
 		if (this.frame > this.length) {
@@ -57,7 +72,12 @@ export class AnimationVector {
 
 		this.t = easeFunctions[this.ease](this.frame / this.length);
 		this.offset = lerp_vector(this.start, this.end, this.t);
-		this.value.setV(this.offset);
-		return this.value;
+		object[this.value].setV(this.offset);
+	}
+	stop() {
+		this.frame = this.length;
+	}
+	reset() {
+		this.frame = 0;
 	}
 }
