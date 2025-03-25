@@ -168,6 +168,10 @@ export function debug_color() {
 	const purple = transparentRed.copy().add(transparentBlue);
 	can.drawRect(200, 0, 100, 100, purple, black, 10);
 
+	purple.set('a',0.5)
+	console.log(purple);
+	
+
 	// Mul
 }
 

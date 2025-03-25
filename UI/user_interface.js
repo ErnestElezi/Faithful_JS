@@ -77,11 +77,11 @@ export class Panel extends Interactive {
 		can.translateV(this.position);
 		this.children.forEach((child) => child.draw());
 
-		can.setFillColor(palette.pink);
-		can.c.fillText('Hover: ' + this.hover, 20, 20);
-		can.c.fillText('Click: ' + this.click, 20, 40);
-		can.c.fillText('Grabbed: ' + this.grabbed, 20, 60);
-		can.c.fillText('Position: ' + this.position.x + ',' + this.position.y, 20, 80);
+		// can.setFillColor(palette.pink);
+		// can.c.fillText('Hover: ' + this.hover, 20, 20);
+		// can.c.fillText('Click: ' + this.click, 20, 40);
+		// can.c.fillText('Grabbed: ' + this.grabbed, 20, 60);
+		// can.c.fillText('Position: ' + this.position.x + ',' + this.position.y, 20, 80);
 
 		can.restore();
 	}

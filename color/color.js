@@ -79,6 +79,23 @@ export class Color {
 		return this.copy();
 	}
 
+	set(targetProperty = 0, value = 0) {
+		switch (targetProperty) {
+			case 'r':
+				this.r = value;
+				break;
+			case 'b':
+				this.b = value;
+				break;
+			case 'g':
+				this.g = value;
+				break;
+			case 'a':
+				this.a = value;
+				break;
+		}
+	}
+
 	/**
 	 * Adds the values of another color to this color.
 	 *

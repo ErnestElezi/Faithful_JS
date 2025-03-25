@@ -11,7 +11,7 @@ export const palette = {
 	blue: new Color().set_hex('#0583cc'),
 	purple: new Color().set_hex('#8200e2'),
 	darkPurple: new Color().set_hex('#36005c'),
-	black: new Color().set_hex('#292732'),
+	black: new Color().set_hex('#000000'),
 	blackDim: new Color().set_hex('#181621'),
 	transparent: new Color(0, 0, 0, 0),
 };

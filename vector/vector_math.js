@@ -4,7 +4,7 @@ export const deg = Math.PI / 180;
 
 /**
  * Adds all vectors
- * @param  {...any} vectors Vectors to add
+ * @param  {...vector} vectors Vectors to add
  * @returns Resulting vector
  */
 export function add(...vectors) {
@@ -17,7 +17,7 @@ export function add(...vectors) {
 
 /**
  * Multiplies all vectors
- * @param  {...any} vectors Vectors to multiply
+ * @param  {...vector} vectors Vectors to multiply
  * @returns Resluting vector
  */
 export function multiply(...vectors) {
@@ -30,7 +30,7 @@ export function multiply(...vectors) {
 
 /**
  * Avarages all vectors
- * @param  {...any} vectors Vectors to avarage
+ * @param  {...vector} vectors Vectors to avarage
  * @returns Resulting vector
  */
 export function avarage(...vectors) {

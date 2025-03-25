@@ -77,6 +77,35 @@ export class Brush {
 		this.c.moveTo(point.x, point.y);
 	}
 
+	/**
+	 * Clears an area of the canvas defined by a rectangle
+	 *
+	 * @param {number} x - The xcoordinate of the starting point.
+	 * @param {number} y - The y-coordinate of the starting point.
+	 * @param {number} width - The width of the clear rectange.
+	 * @param {number} height - The height of the clear rectangle.
+	 */
+	clearRect(x = 0, y = 0, width = 0, height = 0) {
+		can.c.clearRect(x, y, width, height);
+	}
+
+	/**
+	 * Clears an area of the canvas defined by a rectangle
+	 *
+	 * @param {vector} position - The position of the clear rectangle.
+	 * @param {vector} size - The size of the clear rectangle.
+	 */
+	clearRectV(position = new vector(), size = new vector()) {
+		can.c.clearRect(position.x, position.y, size.x, size.y);
+	}
+
+	/**
+	 * Clears the whole canvas
+	 */
+	clearScreen() {
+		this.clearRectV(new vector(), new vector(this.canvas_element.width, this.canvas_element.height));
+	}
+
 	// Drawing Paths
 
 	/**
@@ -1195,6 +1224,93 @@ export class Brush {
 		this.beginPath();
 		this.pathRoundedRectV(position, size, r);
 		this.draw(fill, stroke, lineWidth);
+	}
+
+	/**
+	 * Fills in defined text
+	 *
+	 * @param {String} text - The text that will be drawn
+	 * @param {number} x - The x position of the text
+	 * @param {number} y - The y position of the text
+	 * @param {Color} fill - The fill color of the text
+	 * @param {String} font - The font size and family that will be used
+	 */
+	fillText(text = 'No Text', x = 0, y = 0, fill = new Color(), font = '25px Arial') {
+		can.c.font = font;
+		can.setFillColor(fill);
+		can.c.fillText(text, x, y);
+	}
+
+	/**
+	 * Fills in defined text
+	 *
+	 * @param {String} text - The text that will be drawn
+	 * @param {vector} position - The position of the text
+	 * @param {Color} fill - The fill color of the text
+	 * @param {String} font - The font size and family that will be used
+	 */
+	fillTextV(text = 'No Text', position, fill = new Color(), font = '25px Arial') {
+		this.fillText(text, position.x, position.y, fill, font);
+	}
+
+	/**
+	 * Strokes in defined text
+	 *
+	 * @param {String} text - The text that will be drawn
+	 * @param {number} x - The x position of the text
+	 * @param {number} y - The y position of the text
+	 * @param {Color} stroke - The stroke color of the text
+	 * @param {number} lineWidth - The width of the stroke
+	 * @param {String} font - The font size and family that will be used
+	 */
+	strokeText(text = 'No Text', x = 0, y = 0, stroke = new Color(), lineWidth = 1, font = '25px Arial') {
+		can.c.font = font;
+		can.setLineWidth(lineWidth);
+		can.setStrokeColor(stroke);
+		can.c.fillText(text, x, y);
+	}
+
+	/**
+	 * Strokes in defined text
+	 *
+	 * @param {String} text - The text that will be drawn
+	 * @param {vector} position - The position of the text
+	 * @param {Color} fill - The stroke color of the text
+	 * @param {number} lineWidth - The width of the stroke
+	 * @param {String} font - The font size and family that will be used
+	 */
+	strokeTextV(text = 'No Text', position, stroke = new Color(), lineWidth = 1, font = '25px Arial') {
+		this.strokeText(text, position.x, position.y, stroke, lineWidth, font);
+	}
+
+	/**
+	 * Draws defined text
+	 *
+	 * @param {String} text - The text that will be drawn
+	 * @param {number} x - The x position of the text
+	 * @param {number} y - The y position of the text
+	 * @param {Color} stroke - The stroke color of the text
+	 * @param {Color} fill - The fill color of the text
+	 * @param {number} lineWidth - The width of the stroke
+	 * @param {String} font - The font size and family that will be used
+	 */
+	drawText(text = 'No Text', x = 0, y = 0, fill = new Color(), stroke = new Color(), lineWidth = 1, font = '25px Arial') {
+		this.fillText(text, x, y, fill, font);
+		this.strokeText(text, x, y, stroke, lineWidth, font);
+	}
+
+	/**
+	 * Draws defined text
+	 *
+	 * @param {String} text - The text that will be drawn
+	 * @param {vector} position - The position of the text
+	 * @param {Color} stroke - The stroke color of the text
+	 * @param {Color} fill - The fill color of the text
+	 * @param {number} lineWidth - The width of the stroke
+	 * @param {String} font - The font size and family that will be used
+	 */
+	drawTextV(text = 'No Text', position = new vector(), fill = new Color(), stroke = new Color(), lineWidth = 1, font = '25px Arial') {
+		this.drawText(text, position.x, position.y, fill, stroke, lineWidth, font);
 	}
 
 	// Rendering
